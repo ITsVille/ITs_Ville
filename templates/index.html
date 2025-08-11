@@ -8,10 +8,20 @@
 </head>
 <body>
 <div class="hero">
-    <h1>{{.Name}}</h1>
-    <h2>{{.Role}}</h2>
-    <button onclick="sayHello()">Ota yhteyttä</button>
+    <h1 class="typewriter">{{.Name}}</h1>
+    <h2 class="typewriter-delay-1">{{.Role}}</h2>
+    
+    <!-- Chatbot Container -->
+    <div id="chat-container" class="typewriter-delay-3">
+        <iframe
+            id="botpress-iframe"
+            src="https://cdn.botpress.cloud/webchat/v3.2/shareable.html?configUrl=https://files.bpcontent.cloud/2025/08/11/10/20250811103822-PJWQVV98.json"
+            width="400"
+            height="600"
+            frameborder="0"
+            style="margin-top: 20px; box-shadow: 0 2px 20px rgba(0,0,0,0.2); border-radius: 10px;"
+        ></iframe>
+    </div>
 </div>
-<script src="/static/script.js"></script>
 </body>
 </html>

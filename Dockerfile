@@ -1,14 +1,21 @@
-ARG GO_VERSION=1
-FROM golang:${GO_VERSION}-bookworm as builder
+FROM golang:1.24-alpine
 
-WORKDIR /usr/src/app
+WORKDIR /app
+
+# Copy go.mod and go.sum first to leverage Docker cache
 COPY go.mod ./
-RUN go mod download && go mod verify
+
+# Copy the source code and other necessary files
 COPY . .
-RUN go build -v -o /run-app .
 
+# Build the application
+RUN go build -o main .
 
-FROM debian:bookworm
+# Make sure the static and templates directories are included
+RUN mkdir -p /app/static /app/templates
 
-COPY --from=builder /run-app /usr/local/bin/
-CMD ["run-app"]
+# Expose the port the app runs on
+EXPOSE 8080
+
+# Run the binary
+CMD ["./main"]

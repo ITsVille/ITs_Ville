@@ -23,7 +23,7 @@ func main() {
 		data := map[string]string{
 			"Name": "Ville Nurmenniemi",
 			"Role": "Software Developer & AI Enthusiast",
-			"Description": "Hi, Welcome to my portfolio! Plaese say hello to my chat bot! :)",
+			"Description": "Hi, Welcome to my portfolio! Plaese say hello to my chatbot! :)",
 		}
 		
 		if err := tmpl.Execute(w, data); err != nil {

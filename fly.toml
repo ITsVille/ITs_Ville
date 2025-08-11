@@ -1,14 +1,12 @@
-# fly.toml app configuration file generated for its-ville on 2025-08-10T08:47:37Z
+# fly.toml app configuration file generated for its-ville-still-fog-9827 on 2025-08-10T13:10:39+03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'ITs_Ville'
+app = 'its-ville-still-fog-9827'
 primary_region = 'arn'
 
 [build]
-  [build.args]
-    GO_VERSION = '1.24'
 
 [env]
   PORT = '8080'
@@ -25,4 +23,3 @@ primary_region = 'arn'
   memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1
-  memory_mb = 1024

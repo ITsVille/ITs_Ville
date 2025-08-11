@@ -8,19 +8,32 @@ import (
 
 func main() {
 	// Staattiset tiedostot (CSS, JS, kuvat)
-	fs := http.FileServer(http.Dir("./static"))
+	fs := http.FileServer(http.Dir("static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	// Reitti pääsivulle
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		tmpl := template.Must(template.ParseFiles("templates/index.html"))
+		tmpl, err := template.ParseFiles("templates/index.html")
+		if err != nil {
+			log.Printf("Error parsing template: %v", err)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
+		
 		data := map[string]string{
 			"Name": "Ville Nurmenniemi",
 			"Role": "Software Developer & AI Enthusiast",
 		}
-		tmpl.Execute(w, data)
+		
+		if err := tmpl.Execute(w, data); err != nil {
+			log.Printf("Error executing template: %v", err)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
 	})
 
-	log.Println("Server running at http://localhost:8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Println("Server starting at http://localhost:8080")
+	if err := http.ListenAndServe(":8080", nil); err != nil {
+		log.Fatal("Error starting server: ", err)
+	}
 }
